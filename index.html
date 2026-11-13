@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b16">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="حسابدار من">
+<meta name="description" content="مدیریت ساده درآمد و هزینه، آفلاین و روی گوشی خودت">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+<title>حسابدار من</title>
+</head>
+<body>
+<div class="ambient"><i></i><i></i><i></i></div>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <div>
+    <small>حسابدار من</small>
+    <h1 id="greeting">سلام 👋</h1>
+  </div>
+  <button class="avatar" id="profileBtn" title="حساب کاربری"><span id="avatarText">B</span></button>
+</header>
+
+<main id="app" class="page">
+  <section id="homePage" class="view active">
+    <section class="balance-card" data-tour="balance">
+      <div class="shine"></div>
+      <div class="balance-copy">
+        <span>موجودی فعلی</span>
+        <strong id="balance">۰</strong>
+        <small>تومان</small>
+      </div>
+      <div class="balance-orb"><b></b></div>
+    </section>
+
+    <div id="backupNote"></div>
+
+    <section class="stats-grid">
+      <article class="stat income-stat"><span>درآمد این ماه</span><strong id="homeIncome">۰</strong><small>تومان</small></article>
+      <article class="stat expense-stat"><span>هزینه این ماه</span><strong id="homeExpense">۰</strong><small>تومان</small></article>
+    </section>
+
+    <section class="quick-grid" data-tour="quick">
+      <button class="quick income" id="incomeBtn"><b>＋</b><span>ثبت درآمد</span><small>پول وارد شده</small></button>
+      <button class="quick expense" id="expenseBtn"><b>−</b><span>ثبت هزینه</span><small>پول خرج شده</small></button>
+    </section>
+
+    <section class="panel" data-tour="analysis">
+      <div class="head">
+        <div><small>تحلیل مالی</small><h2>پول کجا رفت؟</h2></div>
+        <button class="link-btn" id="fullReport">گزارش کامل</button>
+      </div>
+      <div class="month-picker">
+        <button id="prevMonth">‹</button><strong id="monthTitle"></strong><button id="nextMonth">›</button>
+      </div>
+      <div class="donut-wrap"><div id="donut" class="donut"><div><b id="donutTotal">۰</b><small>تومان</small></div></div></div>
+      <div id="legend" class="legend"></div>
+    </section>
+
+    <section class="panel">
+      <div class="head"><div><small>آخرین فعالیت‌ها</small><h2>تراکنش‌های اخیر</h2></div><button class="link-btn" data-page="search">همه</button></div>
+      <div id="recentList" class="list"></div>
+    </section>
+  <section class="home-search glass">
+      <div class="section-head"><div><small>دسترسی سریع</small><h2>جستجوی سریع</h2></div><span>⌕</span></div>
+      <input id="homeSearch" type="search" placeholder="چیپس، مغازه رسول، ۱۴۰۵/۰۶/۱۲..." />
+      <div id="homeSearchResults"></div>
+    </section>
+</section>
+
+  <section id="searchPage" class="view">
+    <div class="page-title"><small>پیدا کردن اطلاعات</small><h2>جستجوی هوشمند</h2></div>
+    <div class="search-box"><span>⌕</span><input id="searchInput" placeholder="چیپس، مغازه رسول، ۱۲ شهریور..."></div>
+    <div class="chips">
+      <button class="filter-chip active" data-filter="all">همه</button>
+      <button class="filter-chip" data-filter="expense">هزینه‌ها</button>
+      <button class="filter-chip" data-filter="income">درآمدها</button>
+    </div>
+    <div id="searchResults" class="list"></div>
+  </section>
+
+  <section id="reportsPage" class="view">
+    <div class="page-title"><small>تحلیل و آمار</small><h2>گزارش‌های مالی</h2></div>
+    <div class="report-month"><button id="rPrev">‹</button><strong id="reportMonth"></strong><button id="rNext">›</button></div>
+    <section class="stats-grid">
+      <article class="stat income-stat"><span>کل درآمد</span><strong id="reportIncome">۰</strong><small>تومان</small></article>
+      <article class="stat expense-stat"><span>کل هزینه</span><strong id="reportExpense">۰</strong><small>تومان</small></article>
+    </section>
+    <section class="panel">
+      <div class="head"><div><small>مقایسه</small><h2>درآمد و هزینه</h2></div></div>
+      <div class="bar-chart"><div><span id="incomeBar"></span><b>درآمد</b><em id="incomeBarText">۰</em></div><div><span id="expenseBar"></span><b>هزینه</b><em id="expenseBarText">۰</em></div></div>
+    </section>
+    <section class="panel">
+      <div class="head"><div><small>جزئیات</small><h2>هزینه‌ها بر اساس دسته</h2></div></div>
+      <div id="categoryReport" class="category-report"></div>
+    </section>
+    <section class="panel">
+      <div class="head"><div><small>گردش کامل</small><h2>تمام تراکنش‌های این ماه</h2></div></div>
+      <div id="fullTransactions" class="list"></div>
+    </section>
+  </section>
+
+  <section class="view" id="settingsPage">
+      <div class="page-title"><small>شخصی‌سازی</small><h2>تنظیمات</h2></div>
+      <div class="settings-card">
+        <div class="profile"><div class="avatar">B</div><div><small>حساب کاربری</small><h2>Batman</h2><span>حساب شخصی</span></div></div>
+        <div class="settings-grid">
+          <button class="setting" data-setting="backup"><span>💾</span><div><b>بکاپ اطلاعات</b><small>دانلود نسخه پشتیبان JSON</small></div><i>›</i></button>
+          <button class="setting" data-setting="restore"><span>📥</span><div><b>بازیابی اطلاعات</b><small>برگرداندن فایل بکاپ</small></div><i>›</i></button>
+          <button class="setting" data-setting="csv"><span>📊</span><div><b>خروجی CSV</b><small>برای Excel و نگهداری</small></div><i>›</i></button>
+          <button class="setting" data-setting="appearance"><span>✨</span><div><b>ظاهر برنامه</b><small id="appearanceStatus">تم رنگی</small></div><i>›</i></button>
+          <button class="setting" data-setting="tour"><span>🎓</span><div><b>آموزش برنامه</b><small>مرور سریع بخش‌های اصلی</small></div><i>›</i></button>
+          <button class="setting" data-setting="clear"><span>🗑️</span><div><b>پاکسازی اطلاعات</b><small>حذف همه تراکنش‌ها با تأیید</small></div><i>›</i></button>
+        </div>
+      </div>
+    </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav active" data-page="home">⌂<small>خانه</small></button>
+  <button class="nav" data-page="search">⌕<small>جستجو</small></button>
+  <button class="nav-plus" id="plusBtn">+</button>
+  <button class="nav" data-page="reports">◫<small>گزارش</small></button>
+  <button class="nav" data-page="settings">⚙<small>تنظیمات</small></button>
+</nav>
+<footer class="app-footer">ساخته شده توسط batman</footer>
+
+<div id="modal" class="modal hidden"><div class="backdrop" data-close></div><section class="modal-card" id="modalCard"></section></div>
+<script src="app.js"></script>
+</body>
+</html>
